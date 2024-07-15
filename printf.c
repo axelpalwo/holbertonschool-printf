@@ -2,13 +2,14 @@
 /**
  * _printf - Prints formated values
  * @format: String composed of zero or more directives (example: %i)
- * Return: Always 0 Success
+ * Return: 0 Success / -1 Failure (Null)
  */
 int _printf(const char *format, ...)
 {
-	int i, v, z, iph, fcounter = 0, bmemory = 0, bmemorytotal = 0;
+	int i, v, z, iph, len, fcounter = 0, bmemory = 0, bmemorytotal = 0;
 	va_list ap;
-	char farr[], char *str, char *sph, char cph;
+	char *farr, *str, *sph;
+	char cph;
 	char **params;
 
 	/* Contamos la cantidad de parametros que hay */
@@ -27,12 +28,13 @@ int _printf(const char *format, ...)
 			}
 		}
 	}
+	printf("fcounter es: %i\n", fcounter);
 	if (fcounter > 0)
 	{
-		/* Asignamos espacio en memoria para Array de formateadores */
+		/* Asignamos espacio en memoria para el Array de Formateadores */
 		farr = malloc(sizeof(char) * fcounter);
-		if (farr == NULL) /* Manejamos fallo de Malloc */
-			return (NULL);
+		if (farr == NULL)
+			return (-1);
 		/* Asignamos formateadores dentro de un Array */
 		v = 0;
 		for (i = 0; format[i] != '\0'; i++)
@@ -40,6 +42,7 @@ int _printf(const char *format, ...)
 			if (format[i] == '%')
 			{
 				farr[v] = format[i + 1];
+				printf("Armando los formateadores, ahora va: %c\n", farr[v]);
 				v++;
 			}
 		}
@@ -58,19 +61,24 @@ int _printf(const char *format, ...)
 					break;
 				case 'd':
 				case 'i':
-					bmemory += sizeof((va_arg(ap, int) / 4));
+					iph = va_arg(ap, int);
+					if (iph)
+						printf("Reconozco iph\n");
+					else
+
 					break;
 			}
 			v++;
 		}
+		printf("La memoria del Array de parametros es: %i\n", bmemory);
 		/* Asignamos espacio en memoria para el Array de punteros */
 		params = malloc(sizeof(char) * bmemory);
 		if (params == NULL)
 		{
 			free(farr);
-			return (NULL);
+			return (-1);
 		}
-		va_end(ap, format);
+		va_end(ap);
 		/* Recorremos los parametros una vez mas, para convertirlos en Strings */
 		va_start(ap, format);
 		v = 0;
@@ -80,21 +88,23 @@ int _printf(const char *format, ...)
 			{
 				case 'c':
 					cph = va_arg(ap, int);
-					params[v] = char_to_str(cph); /* Char to String */
+					*params = char_to_str(cph); /* Char to String */
 					break;
 				case 's':
 					sph = va_arg(ap, char *);
-					params[v] = sph;
+					*params = sph;
 					break;
 				case 'd':
 				case 'i':
 					iph = va_arg(ap, int);
-					params[v] = funct2(iph); /* Int to String */
+					*params = int_to_str(iph); /* Int to String */
 					break;
 			}
 			v++;
+			printf("El parametro actual es: %s\n", *params);
+			params++;
 		}
-		va_end(ap, format);
+		va_end(ap);
 		/* Calculamos memoria total para el String a imprimir */
 		bmemorytotal = (length(format) - (fcounter * 2) + bmemory);
 		/* Asignamos la memoria del String a imprimir */
@@ -103,23 +113,21 @@ int _printf(const char *format, ...)
 		{
 			free(farr);
 			free(params);
-			return (NULL);
+			return (-1);
 		}
 		/* Armamos un nuevo String con todos los parametros dentro */
-		v = 0;
 		i = 0;
 		z = 0;
 		while (i < bmemorytotal)
 		{
 			if (format[z] == '%')
 			{
-				while (params[v] != '\0')
+				while (**params != '\0')
 				{
-					str[i] = params[v];
+					str[i] = **params;
 					i++;
-					v++;
+					params++;
 				}
-				v = 0;
 				z++;
 			} else
 			{
@@ -129,10 +137,10 @@ int _printf(const char *format, ...)
 			z++;
 		}
 		/* Imprimimos */
-		write(str, bmemorytotal);
-		return (0);
+		write(1, str, bmemorytotal);
+		return (bmemorytotal);
 	} /* Cierra el if fcounter > 0 */
 	/* Si no tiene formateadores, imprimimos tal cual */
-	write(format, length(format) + 1);
-	return (0);
+	write(1, format, length(format) + 1);
+	return (length(format) + 1);
 }
