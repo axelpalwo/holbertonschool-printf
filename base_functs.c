@@ -32,4 +32,38 @@ char *int_to_base(unsigned int num, int base)
 	}
 	return (ptr);
 }
+char *int_to_unsigned(unsigned int num)
+{
+	unsigned int number, numph;
+       	int counter, divider = 1, v;
+	char *str, *ptr;
+
+	number = num;
+	/* Guardamos valor original de number */
+	numph = number;
+	/* Contamos cantidad de digitos del numero */
+	while (number != 0)
+	{
+		number /= 10;
+		counter++;
+	}
+	/* Asignamos espacio en memoria */
+	str = malloc(sizeof(char) * (counter + 1));
+	if (str == NULL)
+		return (NULL);
+	ptr = str;
+	/* Bajamos cada numero y lo convertimos en caracter */
+	while (counter > 0)
+	{
+		for (v = 1; v < counter; v++)
+			divider *= 10;
+		*str = (number / divider) + '0';
+		str++;
+		numph %= divider; /* Nos movemos al siguiente numero */
+		counter--;
+		divider = 1;
+	}
+	*str = '\0';
+	return (ptr);
+}
 
