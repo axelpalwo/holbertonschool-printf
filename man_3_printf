@@ -1,0 +1,113 @@
+# _printf - Linux Manual Page
+
+# Name
+
+	_printf
+
+# Library
+
+	printf.c file
+
+# Synopsis
+	
+	#include "printf.c"
+
+	int printf(const char *format, ...);
+
+# Description
+
+	The functions in the _printf() function produce output according to a format described below.
+	The function write output to the standart output stream.
+
+	The function write the output under the control of a format string that specifies how subsequent
+	arguments accessed via the variable-length argument facilities of stdarg are converted for output.
+
+	Format of the format string:
+
+	The format string is a character string, beginning and ending in its initial shift state, if any.
+	The format string is composed of zero or more directives: ordinary characters (not %), which
+	are copied unchanged to the output stream; and conversion specifications, each of which results
+	in fetching zero or more subsequent arguments. Each conversion specification is introduced by the
+	character '%', and ends with a conversion specifier. In between there may be (in this order) zero or
+	more flags, an optional minimum field width, an optional precision and an optional length modifier.
+
+	The overall syntax of a conversion specification is:
+
+	%[$][flags][width][.precision][length modifier]conversion
+
+	The arguments must correspond properly (after type promotion) with the conversion specifier. By
+	default, the arguments are used in the order given, where each '*' and each conversion specifier asks
+	for the next argument.
+	One can also specify explicitly which argument is taken, at each place where an argument is required, by
+	writing "%m$" instead of '%' and "*m$" instead of '*', where the decimal integer m denotes the position
+	in the argument list of the desired argument, indexed starting from 1.
+
+	Flag characters
+	
+	The character % is followed by zero or more of the following flags:
+	
+	// To add if using flags
+
+
+	Field width
+
+	//
+
+	Precision
+
+	//
+
+	Length modifier
+
+	//
+
+	Conversion specifiers
+
+	A character that specifies the type of conversion to be applied.
+	The conversion specifiers and their meaning are:
+
+	d, i	The int argument is converted to signed decimal notation.
+
+	c	The int argument is converted to an unsigned char, and the resulting character is written.
+
+	s	The const char * argument is expected to be a pointer to an array of character type (pointer
+		to a string). Characters from the array are written up to (but not including) a terminating null
+		byte ('\0').
+
+	%	a '%' is written. No argument is converted. The complete specification is '%%'.
+
+# Return Value
+
+	Upon sucessful return, this function return the number of bytes printed (excluding the null byte used to
+	end output to strings).
+
+# Examples
+
+	It's important to include this function where you think to use it:
+
+	#include "printf.c"
+
+	To print the character 'H' and a new line you must use the function with this notation:
+
+	_printf("%i\n", 'H');
+	
+	In the terminal you will see:
+
+	H
+
+	To print the string "Hello World!" and a new line you must use the function with the next notation:
+
+	_printf("%s\n", "Hello World!");
+
+	In the terminal you will see:
+
+	Hello World!
+
+	To print numbers you can either use the conversion specifier 'd' or 'i':
+
+	_printf("Number 1: %i, Number 2: %d\n", num1, num2);
+
+	Being Num1 a variable with a 10 saved and Num2 with 15, the terminal output will be:
+
+	Number 1: 10, Number 2: 15
+	
