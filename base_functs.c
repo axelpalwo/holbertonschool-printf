@@ -57,7 +57,7 @@ char *int_to_unsigned(unsigned int num)
 	{
 		for (v = 1; v < counter; v++)
 			divider *= 10;
-		*str = (number / divider) + '0';
+		*str = (numph / divider) + '0';
 		str++;
 		numph %= divider; /* Nos movemos al siguiente numero */
 		counter--;
