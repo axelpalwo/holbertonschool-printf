@@ -7,6 +7,7 @@
 int _printf(const char *format, ...)
 {
 	int iph, tbytes = 0;
+	unsigned int uiph;
 	const char *ptr = format, *sph;
 	char cph;
 	va_list ap;
@@ -39,6 +40,26 @@ int _printf(const char *format, ...)
 					cph = '%';
 					write(1, &cph, 1);
 					tbytes++;
+					break;
+				case 'b':
+					uiph = va_arg(ap, unsigned int);
+					sph = int_to_base(uiph, 2);
+					write(1, sph, length(sph));
+					tbytes += length(sph);
+					break;
+				case 'u':
+					iph = va_arg(ap, unsigned int);
+					sph = int_to_unsigned(iph);
+					write(1, sph, length(sph));
+					tbytes += length(sph);
+					break;
+				case 'o':
+				case 'x':
+				case 'X':
+					uiph = va_arg(ap, unsigned int);
+					sph = int_to_base(uiph, 8);
+					write(1, sph, length(sph));
+					tbytes += length(sph);
 					break;
 			}
 			ptr++;
