@@ -4,7 +4,7 @@
  * @str: String
  * Return: Length (Int)
  */
-int length(const char *str)
+int length(char *str)
 {
 	int i = 0;
 
