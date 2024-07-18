@@ -51,7 +51,6 @@ char *int_to_str(int num)
 		*str = '-';
 		str++; /* Avanzamos al siguiente espacio en memoria */
 		counter--; /* Counter pasa a ser Cant. de Num. */
-		number = -number; /* Valor absoluto a Num */
 	}
 	/* Dividimos segun la cant de num x10 para conseguir el primer numero */
 	while (counter > 0)
