@@ -7,8 +7,8 @@
 int _printf(const char *format, ...)
 {
 	int iph, tbytes = 0;
-	const char *ptr = format, *sph;
-	char cph;
+	const char *ptr = format;
+	char cph, *sph;
 	va_list ap;
 
 	va_start(ap, format);
