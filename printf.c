@@ -43,7 +43,7 @@ int _printf(const char *format, ...)
 					tbytes++;
 					break;
 				case '\0':
-					break;
+					return (tbytes);
 				default:
 					cph = '%';
 					write(1, &cph, 1);
