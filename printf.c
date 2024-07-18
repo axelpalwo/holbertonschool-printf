@@ -26,6 +26,8 @@ int _printf(const char *format, ...)
 					break;
 				case 's':
 					sph = va_arg(ap, char *);
+					if (!sph)
+						sph = "(null)";
 					write(1, sph, length(sph));
 					tbytes += length(sph);
 					break;
@@ -41,25 +43,11 @@ int _printf(const char *format, ...)
 					write(1, &cph, 1);
 					tbytes++;
 					break;
-				case 'b':
-					uiph = va_arg(ap, unsigned int);
-					sph = int_to_base(uiph, 2);
-					write(1, sph, length(sph));
-					tbytes += length(sph);
-					break;
-				case 'u':
-					iph = va_arg(ap, unsigned int);
-					sph = int_to_unsigned(iph);
-					write(1, sph, length(sph));
-					tbytes += length(sph);
-					break;
-				case 'o':
-				case 'x':
-				case 'X':
-					uiph = va_arg(ap, unsigned int);
-					sph = int_to_base(uiph, 8);
-					write(1, sph, length(sph));
-					tbytes += length(sph);
+				default:
+					cph = '%';
+					write(1, &cph, 1);
+					tbytes++;
+					ptr--;
 					break;
 			}
 			ptr++;
