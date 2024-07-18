@@ -2,6 +2,7 @@
 /**
  * int_to_base - Converts an int into specified base string
  * @num: Number to convert
+ * @base: Base to convert
  * Return: String
  */
 char *int_to_base(unsigned int num, int base)
@@ -32,10 +33,15 @@ char *int_to_base(unsigned int num, int base)
 	}
 	return (ptr);
 }
+/**
+ * int_to_unsigned - Converts an int into unsigner number
+ * @num: Number
+ * Return: String
+ */
 char *int_to_unsigned(unsigned int num)
 {
 	unsigned int number, numph;
-       	int counter, divider = 1, v;
+	int counter, divider = 1, v;
 	char *str, *ptr;
 
 	number = num;
