@@ -14,7 +14,7 @@ int _printf(const char *format, ...)
 	va_start(ap, format);
 	for ( ; *ptr != '\0' && ptr != NULL; ptr++)
 	{
-		if (*ptr == '%' && *ptr + 1 != '\0')
+		if (*ptr == '%')
 		{
 			switch (*(ptr + 1))
 			{
