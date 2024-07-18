@@ -59,6 +59,8 @@ int _printf(const char *format, ...)
 			tbytes++;
 		}
 	}
+	cph = '\0';
+	write(1, &cph, 1);
 	va_end(ap);
 	return (tbytes);
 }
