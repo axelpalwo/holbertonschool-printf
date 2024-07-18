@@ -17,7 +17,7 @@ int _printf(const char *format, ...)
 		if (*ptr == '%')
 		{
 			if (*(ptr + 1) == '\0')
-				return (tbytes);
+				return (-1);
 			switch (*(ptr + 1))
 			{
 				case 'c':
@@ -36,6 +36,8 @@ int _printf(const char *format, ...)
 				case 'i':
 					iph = va_arg(ap, int);
 					sph = int_to_str(iph);
+					if (sph == NULL)
+						return (tbytes);
 					write(1, sph, length(sph));
 					tbytes += length(sph);
 					free(sph);
