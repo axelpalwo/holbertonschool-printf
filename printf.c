@@ -42,6 +42,8 @@ int _printf(const char *format, ...)
 					write(1, &cph, 1);
 					tbytes++;
 					break;
+				case '\0':
+					break;
 				default:
 					cph = '%';
 					write(1, &cph, 1);
