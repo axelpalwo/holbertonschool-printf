@@ -37,8 +37,8 @@ int _printf(const char *format, ...)
 					iph = va_arg(ap, int);
 					sph = int_to_str(iph);
 					write(1, sph, length(sph));
-					free(sph);
 					tbytes += length(sph);
+					free(sph);
 					break;
 				case '%':
 					cph = '%';
@@ -59,8 +59,6 @@ int _printf(const char *format, ...)
 			tbytes++;
 		}
 	}
-	cph = '\0';
-	write(1, &cph, 1);
 	va_end(ap);
 	return (tbytes);
 }
