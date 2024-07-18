@@ -7,7 +7,6 @@
 int _printf(const char *format, ...)
 {
 	int iph, tbytes = 0;
-	unsigned int uiph;
 	const char *ptr = format, *sph;
 	char cph;
 	va_list ap;
