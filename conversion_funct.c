@@ -55,13 +55,16 @@ char *int_to_str(int num)
 	/* Dividimos segun la cant de num x10 para conseguir el primer numero */
 	while (counter > 0)
 	{
+		if (number < 0)
+			divider = -1;
+		else
+			divider = 1;
 		for (v = 1; v < counter; v++)
 			divider *= 10;
 		*str = (number / divider) + '0'; /* Asignamos al String */
 		str++; /* Nos vemos al sig. espacio en memoria */
 		number %= divider; /* Preparamos number con el numero restante */
 		counter--; /* La cant. de num del siguiente numero es 1 menor */
-		divider = 1;
 	}
 	*str = '\0';
 	return (ptr);
