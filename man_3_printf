@@ -42,25 +42,6 @@
 	writing "%m$" instead of '%' and "*m$" instead of '*', where the decimal integer m denotes the position
 	in the argument list of the desired argument, indexed starting from 1.
 
-	Flag characters
-	
-	The character % is followed by zero or more of the following flags:
-	
-	// To add if using flags
-
-
-	Field width
-
-	//
-
-	Precision
-
-	//
-
-	Length modifier
-
-	//
-
 	Conversion specifiers
 
 	A character that specifies the type of conversion to be applied.
