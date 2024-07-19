@@ -44,6 +44,6 @@ int _printf(const char *format, ...)
 		} else
 			write(1, &ptr[i], 1);
 	}
-	tbytes += i - 1;
+	tbytes += i;
 	return (tbytes);
 }
