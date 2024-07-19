@@ -6,24 +6,23 @@
  */
 int _printf(const char *format, ...)
 {
-	int iph, tbytes = 0;
+	int tbytes = 0, i;
 	const char *ptr = format;
 	char cph, *sph;
 	va_list ap;
 
 	va_start(ap, format);
-	for ( ; *ptr != '\0' && ptr != NULL; ptr++)
+	for (i = 0; ptr[i] != '\0' && ptr != NULL; i++)
 	{
-		if (*ptr == '%')
+		if (ptr[i] == '%')
 		{
-			if (*(ptr + 1) == '\0')
+			if (ptr[i + 1] == '\0')
 				return (-1);
-			switch (*(ptr + 1))
+			switch (ptr[i + 1])
 			{
 				case 'c':
 					cph = va_arg(ap, int);
 					write(1, &cph, 1);
-					tbytes++;
 					break;
 				case 's':
 					sph = va_arg(ap, char *);
@@ -32,35 +31,19 @@ int _printf(const char *format, ...)
 					write(1, sph, length(sph));
 					tbytes += length(sph);
 					break;
-				case 'd':
-				case 'i':
-					iph = va_arg(ap, int);
-					sph = int_to_str(iph);
-					if (sph == NULL)
-						return (tbytes);
-					write(1, sph, length(sph));
-					tbytes += length(sph);
-					free(sph);
-					break;
 				case '%':
 					cph = '%';
 					write(1, &cph, 1);
-					tbytes++;
 					break;
 				default:
 					cph = '%';
 					write(1, &cph, 1);
-					tbytes++;
-					ptr--;
 					break;
 			}
-			ptr++;
+			i++;
 		} else
-		{
-			write(1, ptr, 1);
-			tbytes++;
-		}
+			write(1, &ptr[i], 1);
 	}
-	va_end(ap);
+	tbytes += i - 1;
 	return (tbytes);
 }
