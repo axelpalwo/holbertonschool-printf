@@ -1,4 +1,4 @@
-![printf](https://github.com/user-attachments/assets/2550214c-f70a-40c3-a924-a19c35e79fbc)![printf](https://github.com/user-attachments/assets/c63d9f06-8654-4151-8221-d62666f48220)# holbertonschool-printf
+# Holbertonschool-printf
 
 Holberton project to implement all the learnings in the past month in C language.
 It brings out every concept we learned and it's important how we implement them.
